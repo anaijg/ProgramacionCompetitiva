@@ -22,13 +22,14 @@ import java.util.Scanner;
 
 public class P364 {
     public static void main(String[] args) {
-        char[] abc = {'A', 'B', 'C','D', 'E', 'F','G', 'H', 'I', 'J', 'Z',};
+        char[] abc = {'A', 'B', 'C','D', 'E', 'F','G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z',};
 
         Scanner sc = new Scanner(System.in);
-        String linea ="JAVIER";
+        System.out.println("Escribe tu carta a los reyes magos, y escribe 'FIN' para hacerla secreta. Recuerda usar solo letras MAYÚSCULAS:".toUpperCase());
+        String linea ="";
         String transf_linea = "";
 
-        while (!linea.equals("FIN")) {
+        while (!linea.equals("FIN") && (!linea.equals("fin"))) {
             linea = sc.nextLine().toUpperCase();
             if (linea.length() > 100) {
                 System.out.println("Error");
@@ -49,14 +50,10 @@ public class P364 {
                     j++;
                 }
             }
-            System.out.println(transf_linea);
-        }
 
+        }
+        System.out.println("~~~~~~~~CARTA ENCRIPTADA~~~~~~~~");
+        System.out.println(transf_linea.toUpperCase());
 
     }
 }
-//if (x.length() >= 0 && x.length() <= 100) {
-//    System.out.println(x);
-//} else {
-//    System.out.println("Error");
-//}
