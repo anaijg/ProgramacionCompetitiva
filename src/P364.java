@@ -4,56 +4,33 @@ import java.util.Scanner;
  * @see <a href="https://www.aceptaelreto.com/problem/statement.php?id=364&cat=98">Espionaje en Navidad</a>
  */
 
-        //Los Reyes Magos han detectado que Papá Noel tiene renos espía para averiguar qué han pedido los niños a los Reyes Magos y traerles él antes el regalo.
-
-        // Para contrarestarlo, los Reyes Magos, que son grandes sabios de Oriente, han pedido a sus niños que envíen las cartas encriptadas. Para facilitarles la tarea, te han encargado hacer un programa que los pequeños puedan usar para encriptar sus cartas.
-
-        // El mecanismo de encriptación es sencillo; al fin y al cabo los renos no son muy inteligentes y casi cualquier cosa será suficiente para que no entiendan nada. Consistirá en desplazar cada letra una posición en el alfabeto hacia delante. Por ejemplo, allí donde haya una letra A se pondrá una B, donde haya una letra B se pondrá una C… y donde haya una letra Z se pondrá una A.
-
-        // Como queremos que el programa sirva para niños que están todavía aprendiendo a leer y a escribir, sólo tendrá que admitir letras mayúsculas y espacios, que se quedarán sin ningún cambio.
-
-
-
-       // El programa deberá leer múltiples casos de prueba, cada uno compuesto por una línea de no más de 100 caracteres.
-
-        //Las líneas contendrán únicamente letras del alfabeto inglés en mayúsculas, por lo que no contendrá ni la letra Ñ ni vocales con tilde. También podrán aparecer espacios (aunque no al principio ni al final), y no habrá ningún otro símbolo de puntuación.
-
-        //La entrada terminará con una línea con, exactamente, el texto "FIN", que no deberá procesarse.
-
 public class P364 {
     public static void main(String[] args) {
-        char[] abc = {'A', 'B', 'C','D', 'E', 'F','G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z',};
-
+        String abecedario = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         Scanner sc = new Scanner(System.in);
-        System.out.println("Escribe tu carta a los reyes magos, y escribe 'FIN' para hacerla secreta. Recuerda usar solo letras MAYÚSCULAS:".toUpperCase());
-        String linea ="";
-        String transf_linea = "";
-
-        while (!linea.equals("FIN") && (!linea.equals("fin"))) {
-            linea = sc.nextLine().toUpperCase();
-            if (linea.length() > 100) {
-                System.out.println("Error");
-            }
-            for (int i=0; i<linea.length(); i++){
-                int j = 0;
-                if ('Z' == linea.charAt(i)) {
-                    transf_linea = transf_linea + abc[0];
-                    break;
-                }
-
-                while ((j < abc.length) && ('Z' != linea.charAt(i))) {
-                    if (abc[j] == linea.charAt(i))
-                    {
-                        transf_linea = transf_linea + abc[j+1];
-                        break;
+        String linea;
+        do {
+             linea = sc.nextLine();
+            if (linea.equals("FIN")) {
+                break;
+            } else {
+                String lineaEncriptada = "";
+                for (int i = 0; i < linea.length(); i++){
+                    // caso especial: transformamos la letra 'Z' por la 'A'
+                    if ('Z' == linea.charAt(i)) {
+                        lineaEncriptada = lineaEncriptada + 'A';
+                    } else if (linea.charAt(i) == ' ') { // si es un espacio, dejamos el espacio tal cual
+                        lineaEncriptada = lineaEncriptada + linea.charAt(i);
+                    } else { // el resto de letras que va procesando el for las sustituimos por la siguiente
+                        // buscamos la letra en abecedario, la reemplazamos y luego la añadimos a la línea
+                        int indiceLetraAEncriptar = abecedario.indexOf(linea.charAt(i));
+                        lineaEncriptada = lineaEncriptada + abecedario.charAt(indiceLetraAEncriptar+1);
                     }
-                    j++;
                 }
+                System.out.println(lineaEncriptada);
             }
-
-        }
-        System.out.println("~~~~~~~~CARTA ENCRIPTADA~~~~~~~~");
-        System.out.println(transf_linea.toUpperCase());
-
+        }while (!linea.equals("FIN"));
     }
 }
+
+
